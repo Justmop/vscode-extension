@@ -20,6 +20,8 @@ const androidAppPackage = vscode.workspace
 	.getConfiguration("justlife-vs-extension")
 	.get("androidAppPackage");
 
+const projectPath = (vscode.workspace.workspaceFolders?.length ?? 0) > 0 && vscode.workspace.workspaceFolders[0]?.uri?.fsPath || ".";
+
 function activate(context) {
 	console.log(
 		'Congratulations, your extension "justlife-vs-extension" is now active!'
@@ -265,7 +267,7 @@ function startIOSSimulator(simulatorId) {
 
 function listOfAbTestFolder() {
 	exec(
-		"find ./src/abtests -maxdepth 1 -type d -exec basename {} \\;",
+		`find ${projectPath}/src/abtests -maxdepth 1 -type d -exec basename {} \\;`,
 		(error, stdout, stderr) => {
 			if (error) {
 				vscode.window.showErrorMessage(
@@ -283,7 +285,7 @@ function listOfAbTestFolder() {
 				.then((selectedFolder) => {
 					if (selectedFolder) {
 						exec(
-							`sh ./cli/ab-test-diff.sh ${selectedFolder.replace(
+							`sh ${projectPath}/cli/ab-test-diff.sh ${selectedFolder.replace(
 								"AbTest",
 								""
 							)}`,

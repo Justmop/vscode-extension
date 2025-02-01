@@ -1,9 +1,9 @@
 {
   "name": "justlife-vs-extension",
   "publisher": "Yakup",
-  "displayName": "justlife-vs-extension",
-  "description": "justlife",
-  "version": "0.0.1",
+  "displayName": "Justlife VSCode Extension",
+  "description": "Extension for Justlife mobile app.",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -19,7 +19,7 @@
     }],
     "configuration": {
       "type": "object",
-      "title": "Justlife VS Extension",
+      "title": "Justlife VSCode Extension",
       "properties": {
         "justlife-vs-extension.emulatorPath": {
           "type": "string",
