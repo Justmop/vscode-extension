@@ -3,7 +3,7 @@
   "publisher": "Yakup",
   "displayName": "Justlife VSCode Extension",
   "description": "Extension for Justlife mobile app.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -12,6 +12,7 @@
   ],
   "activationEvents": [],
   "main": "./extension.js",
+  "icon": "icon/justlife.png",
   "contributes": {
     "commands": [{
       "command": "justlife-vs-extension.simulator",

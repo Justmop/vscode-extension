@@ -21,6 +21,7 @@ const androidAppPackage = vscode.workspace
 	.get("androidAppPackage");
 
 const projectPath = (vscode.workspace.workspaceFolders?.length ?? 0) > 0 && vscode.workspace.workspaceFolders[0]?.uri?.fsPath || ".";
+//const projectPath = '/Users/yakupdurmus/Desktop/justlife/justmobile'
 
 function activate(context) {
 	console.log(
@@ -284,11 +285,9 @@ function listOfAbTestFolder() {
 				})
 				.then((selectedFolder) => {
 					if (selectedFolder) {
-						exec(
-							`sh ${projectPath}/cli/ab-test-diff.sh ${selectedFolder.replace(
-								"AbTest",
-								""
-							)}`,
+						const shellScript = `export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin" && cd ${projectPath}/cli && sh ab-test-diff.sh ${selectedFolder.replace("AbTest", "")}`;
+						console.log({ shellScript });
+						exec(shellScript,
 							(error, stdout, stderr) => {
 								if (error) {
 									vscode.window.showErrorMessage(
@@ -297,8 +296,11 @@ function listOfAbTestFolder() {
 									return;
 								}
 								vscode.window.showInformationMessage(
-									`AB test diff script executed successfully for ${selectedFolder}`
+									`AB test diff script executed successfully for ${stdout}`
 								);
+								const outputChannel = vscode.window.createOutputChannel("AB Test Diff");
+								outputChannel.show();
+								outputChannel.appendLine(stdout);
 							}
 						);
 					}
