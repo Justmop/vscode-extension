@@ -14,7 +14,7 @@
   "contributes": {
     "commands": [{
       "command": "justlife-vs-extension.simulator",
-      "title": "Simulator"
+      "title": "Justlife"
     }]
   },
   "scripts": {
