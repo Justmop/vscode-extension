@@ -1,12 +1,24 @@
 const vscode = require("vscode");
 const { exec } = require("child_process");
 
-const emulatorPath = vscode.workspace.getConfiguration("justlife-vs-extension").get("emulatorPath");
-const adbPath = vscode.workspace.getConfiguration("justlife-vs-extension").get("adbPath");
-const idbPath = vscode.workspace.getConfiguration("justlife-vs-extension").get("idbPath");
-const coreSimulatorLogPath = vscode.workspace.getConfiguration("justlife-vs-extension").get("coreSimulatorLogPath");
-const iosAppPackage = vscode.workspace.getConfiguration("justlife-vs-extension").get("iosAppPackage");
-const androidAppPackage = vscode.workspace.getConfiguration("justlife-vs-extension").get("androidAppPackage");
+const emulatorPath = vscode.workspace
+	.getConfiguration("justlife-vs-extension")
+	.get("emulatorPath");
+const adbPath = vscode.workspace
+	.getConfiguration("justlife-vs-extension")
+	.get("adbPath");
+const idbPath = vscode.workspace
+	.getConfiguration("justlife-vs-extension")
+	.get("idbPath");
+const coreSimulatorLogPath = vscode.workspace
+	.getConfiguration("justlife-vs-extension")
+	.get("coreSimulatorLogPath");
+const iosAppPackage = vscode.workspace
+	.getConfiguration("justlife-vs-extension")
+	.get("iosAppPackage");
+const androidAppPackage = vscode.workspace
+	.getConfiguration("justlife-vs-extension")
+	.get("androidAppPackage");
 
 function activate(context) {
 	console.log(
@@ -25,7 +37,12 @@ function activate(context) {
 	const disposableSimulator = vscode.commands.registerCommand(
 		"justlife-vs-extension.simulator",
 		async function () {
-			const simulatorOptions = ["View IOS", "View Android", "Reset App"];
+			const simulatorOptions = [
+				"View IOS",
+				"View Android",
+				"AbTest Diff",
+				"Reset App",
+			];
 			const selectedSimulator = await vscode.window.showQuickPick(
 				simulatorOptions,
 				{
@@ -93,6 +110,8 @@ function activate(context) {
 					});
 				} else if (selectedSimulator === "Reset App") {
 					resetApp();
+				} else if (selectedSimulator === "AbTest Diff") {
+					listOfAbTestFolder();
 				}
 			}
 		}
@@ -110,8 +129,10 @@ function resetApp() {
 				if (!stderr) {
 					// No booted devices
 				} else {
-					vscode.window.showErrorMessage(`Warning fetching IOS devices: ${stderr}`);
-					return
+					vscode.window.showErrorMessage(
+						`Warning fetching IOS devices: ${stderr}`
+					);
+					return;
 				}
 			}
 			const iosDevices = stdout.split("\n").filter((line) => line);
@@ -134,9 +155,10 @@ function resetApp() {
 
 				const deviceOptions = [...iosDevices, ...androidDevices];
 				if (deviceOptions.length === 0) {
-					vscode.window.showWarningMessage(`No booted devices found. Please boot a device first.`);
+					vscode.window.showWarningMessage(
+						`No booted devices found. Please boot a device first.`
+					);
 					return;
-
 				}
 				vscode.window
 					.showQuickPick(deviceOptions, {
@@ -237,6 +259,48 @@ function startIOSSimulator(simulatorId) {
 			vscode.window.showInformationMessage(
 				`iOS Simulator started: ${simulatorId}`
 			);
+		}
+	);
+}
+
+function listOfAbTestFolder() {
+	exec(
+		"find ./src/abtests -maxdepth 1 -type d -exec basename {} \\;",
+		(error, stdout, stderr) => {
+			if (error) {
+				vscode.window.showErrorMessage(
+					`Error listing AB test folders: ${stderr}`
+				);
+				return;
+			}
+			const abTestFolders = stdout
+				.split("\n")
+				.filter((line) => line.includes("AbTest"));
+			vscode.window
+				.showQuickPick(abTestFolders, {
+					placeHolder: "Select an AB test folder",
+				})
+				.then((selectedFolder) => {
+					if (selectedFolder) {
+						exec(
+							`sh ./cli/ab-test-diff.sh ${selectedFolder.replace(
+								"AbTest",
+								""
+							)}`,
+							(error, stdout, stderr) => {
+								if (error) {
+									vscode.window.showErrorMessage(
+										`Error running AB test diff script: ${stderr}`
+									);
+									return;
+								}
+								vscode.window.showInformationMessage(
+									`AB test diff script executed successfully for ${selectedFolder}`
+								);
+							}
+						);
+					}
+				});
 		}
 	);
 }
