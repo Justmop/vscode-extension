@@ -15,7 +15,43 @@
     "commands": [{
       "command": "justlife-vs-extension.simulator",
       "title": "Justlife"
-    }]
+    }],
+    "configuration": {
+      "type": "object",
+      "title": "Justlife VS Extension",
+      "properties": {
+        "justlife-vs-extension.emulatorPath": {
+          "type": "string",
+          "default": "~/Library/Android/sdk/emulator/emulator",
+          "description": "Path to the Android emulator."
+        },
+        "justlife-vs-extension.adbPath": {
+          "type": "string",
+          "default": "~/Library/Android/sdk/platform-tools/adb",
+          "description": "Path to the ADB tool."
+        },
+        "justlife-vs-extension.idbPath": {
+          "type": "string",
+          "default": "/usr/local/bin/idb",
+          "description": "Path to the IDB tool."
+        },
+        "justlife-vs-extension.coreSimulatorLogPath": {
+          "type": "string",
+          "default": "~/Library/Logs/CoreSimulator",
+          "description": "Path to the Core Simulator logs."
+        },
+        "justlife-vs-extension.iosAppPackage": {
+          "type": "string",
+          "default": "com.mobile.justmop",
+          "description": "iOS app package name."
+        },
+        "justlife-vs-extension.androidAppPackage": {
+          "type": "string",
+          "default": "com.mobile.justmop.debug",
+          "description": "Android app package name."
+        }
+      }
+    }
   },
   "scripts": {
     "lint": "eslint .",
