@@ -13,8 +13,8 @@
   "main": "./extension.js",
   "contributes": {
     "commands": [{
-      "command": "justlife-vs-extension.helloWorld",
-      "title": "Hello World"
+      "command": "justlife-vs-extension.simulator",
+      "title": "Simulator"
     }]
   },
   "scripts": {
