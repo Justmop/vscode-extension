@@ -62,3 +62,8 @@ Please report issues on the GitHub repository.
 - Basic simulator/emulator management
 - App reset functionality
 - AB test diff tool
+
+### 0.0.4
+- Support for running maestro unit tests folder by folder.
+- Ability to edit paths from the settings section.
+- Now supporting VS Code version 1.95.0 and above.
