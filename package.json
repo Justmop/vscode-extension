@@ -51,6 +51,11 @@
           "type": "string",
           "default": "com.mobile.justmop.debug",
           "description": "Android app package name."
+        },
+        "justlife-vs-extension.maestroPath": {
+          "type": "string",
+          "default": "$HOME/.maestro/bin",
+          "description": "Path to the Maestro executable."
         }
       }
     }
