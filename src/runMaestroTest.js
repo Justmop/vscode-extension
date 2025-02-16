@@ -36,7 +36,6 @@ function maestroTestRunner() {
 
             runShellScript.stderr.on('data', (data) => {
               outputChannel.appendLine(data.toString());
-              vscode.window.showErrorMessage(`Error running maestro test script: ${data}`);
             });
 
             runShellScript.on('close', (code) => {
