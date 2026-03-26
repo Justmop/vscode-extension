@@ -5,6 +5,7 @@ const { menuOptions } = require("./src/constants");
 const { resetApp } = require("./src/resetApp");
 const { maestroTestRunner } = require("./src/runMaestroTest");
 const { viewAndroid, viewIOS } = require("./src/startSimulators");
+const { showCursorMenu } = require("./src/cursorIntegration");
 
 function activate(context) {
   console.log(
@@ -41,6 +42,8 @@ function activate(context) {
           listOfAbTestFolder();
         } else if (selectedSimulator === menuOptions.runMaestroTest) {
           maestroTestRunner();
+        } else if (selectedSimulator === menuOptions.cursor) {
+          await showCursorMenu();
         }
       }
     }

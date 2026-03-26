@@ -34,6 +34,7 @@ const menuOptions = {
   abtestDiff: "AbTest Diff",
   resetApp: "Reset App",
   runMaestroTest: "Run Maestro Test",
+  cursor: "Justlife Agent",
 };
 
 module.exports = {

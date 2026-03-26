@@ -3,7 +3,7 @@
   "publisher": "Yakup",
   "displayName": "Justlife VSCode Extension",
   "description": "Extension for Justlife mobile app.",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -14,10 +14,16 @@
   "main": "./extension.js",
   "icon": "icon/justlife.png",
   "contributes": {
-    "commands": [{
-      "command": "justlife-vs-extension.simulator",
-      "title": "Justlife"
-    }],
+    "commands": [
+      {
+        "command": "justlife-vs-extension.simulator",
+        "title": "Justlife"
+      },
+      {
+        "command": "extension.stopMaestroTest",
+        "title": "Stop Maestro Test"
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "Justlife VSCode Extension",
@@ -56,6 +62,22 @@
           "type": "string",
           "default": "$HOME/.maestro/bin",
           "description": "Path to the Maestro executable."
+        },
+        "justlife-vs-extension.cursorUnitTestPrePrompt": {
+          "type": "string",
+          "default": "Generate unit tests based only on the latest code changes (diff). Follow these rules strictly:\n\nScope restriction:\nOnly create or update unit tests for files under:\n\n./src/components/**\n\n./src/screens/**\n\nTest location:\nPlace the generated test files in the following directories:\n\nFor components -> ./__tests__/components/\n\nFor screens -> ./__tests__/screens/\n\nUpdate vs Create:\n\nIf a test file already exists for a modified file, update the existing test.\n\nIf no test file exists, create a new test file and add the tests.\n\nTest coverage (focused & simple):\n\nOnly test the new or changed parts from the diff.\n\nKeep tests simple and lightweight.\n\nFocus on basic render checks such as:\n\nChecking visibility or existence of key UI elements\n\nAvoid complex logic testing unless absolutely necessary.\n\nTest IDs:\n\nIf needed, you may add testID props to components to make them testable.\n\nKeep these additions minimal and clean.\n\nTest quality:\n\nUse clear and descriptive test names.\n\nFollow existing project conventions (e.g., Jest, React Native Testing Library).\n\nMock dependencies only if required.\n\nAvoid unnecessary or overly complex test cases.\n\nOutput format:\n\nReturn only the test code.\n\nDo not include explanations.\n\nEnsure file paths and filenames are correct and consistent with the rules above.",
+          "markdownDescription": "Instructions prepended before the git diff when running **WriteUnitTest** (Cursor Agent).",
+          "editPresentation": "multilineText"
+        },
+        "justlife-vs-extension.cursorGitDiffBaseBranch": {
+          "type": "string",
+          "default": "develop",
+          "description": "Base branch for WriteUnitTest: runs git diff origin/<branch> (e.g. develop \u2192 origin/develop)."
+        },
+        "justlife-vs-extension.cursorAgentForce": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, passes -f/--force to Cursor Agent (non-interactive) to auto-approve tool commands. Use with care."
         }
       }
     }
