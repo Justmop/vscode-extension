@@ -67,3 +67,8 @@ Please report issues on the GitHub repository.
 - Support for running maestro unit tests folder by folder.
 - Ability to edit paths from the settings section.
 - Now supporting VS Code version 1.95.0 and above.
+
+### 0.1.1
+- Justlife Agent: write unit tests for the latest changes via Cursor Agent.
+- Reset App now supports both Justlife and Partner app, detected automatically from the opened project.
+- Reset App on Android now targets the selected device when multiple emulators are running.

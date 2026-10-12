@@ -3,7 +3,7 @@
   "publisher": "Yakup",
   "displayName": "Justlife VSCode Extension",
   "description": "Extension for Justlife mobile app.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -58,6 +58,16 @@
           "default": "com.mobile.justmop.debug",
           "description": "Android app package name."
         },
+        "justlife-vs-extension.partnerIosAppPackage": {
+          "type": "string",
+          "default": "com.justmop.partner",
+          "description": "Partner iOS app package name."
+        },
+        "justlife-vs-extension.partnerAndroidAppPackage": {
+          "type": "string",
+          "default": "com.justmop.partner",
+          "description": "Partner Android app package name."
+        },
         "justlife-vs-extension.maestroPath": {
           "type": "string",
           "default": "$HOME/.maestro/bin",
@@ -72,7 +82,7 @@
         "justlife-vs-extension.cursorGitDiffBaseBranch": {
           "type": "string",
           "default": "develop",
-          "description": "Base branch for WriteUnitTest: runs git diff origin/<branch> (e.g. develop \u2192 origin/develop)."
+          "description": "Base branch for WriteUnitTest: runs git diff origin/<branch> (e.g. develop → origin/develop)."
         },
         "justlife-vs-extension.cursorAgentForce": {
           "type": "boolean",

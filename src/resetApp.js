@@ -1,14 +1,11 @@
-const {
-  adbPath,
-  androidAppPackage,
-  idbPath,
-  iosAppPackage,
-} = require("../src/constants");
+const { adbPath, idbPath, getAppPackages } = require("../src/constants");
 
 const vscode = require("vscode");
 const { exec } = require("child_process");
 
 function resetApp() {
+  const { appName, iosAppPackage, androidAppPackage } = getAppPackages();
+
   exec(
     'xcrun simctl list devices available | grep "(Booted)"',
     (error, stdout, stderr) => {
@@ -50,7 +47,7 @@ function resetApp() {
 
         vscode.window
           .showQuickPick(deviceOptions, {
-            placeHolder: "Select a device to reset the app",
+            placeHolder: `Select a device to reset the ${appName} app`,
           })
           .then((selectedDevice) => {
             if (selectedDevice) {
@@ -64,28 +61,28 @@ function resetApp() {
                   (error, stdout, stderr) => {
                     if (error) {
                       vscode.window.showErrorMessage(
-                        `Error resetting iOS app: ${stderr}`
+                        `Error resetting ${appName} iOS app: ${stderr}`
                       );
                       return;
                     }
                     vscode.window.showInformationMessage(
-                      `iOS app reset on device: ${udid}`
+                      `${appName} iOS app reset on device: ${udid}`
                     );
                   }
                 );
               } else {
-                const emulatorName = selectedDevice.split(" ")[0]; // Emulator adını al
+                const emulatorName = selectedDevice.split(/\s+/)[0]; // Emulator adını al
                 exec(
-                  `${adbPath} shell pm clear ${androidAppPackage}`,
+                  `${adbPath} -s ${emulatorName} shell pm clear ${androidAppPackage}`,
                   (error, stdout, stderr) => {
                     if (error) {
                       vscode.window.showErrorMessage(
-                        `Error resetting Android app: ${stderr}`
+                        `Error resetting ${appName} Android app: ${stderr}`
                       );
                       return;
                     }
                     vscode.window.showInformationMessage(
-                      `Android app reset on device: ${emulatorName}`
+                      `${appName} Android app reset on device: ${emulatorName}`
                     );
                   }
                 );
