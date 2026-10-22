@@ -63,6 +63,7 @@ const menuOptions = {
   viewAndroid: "View Android",
   abtestDiff: "AbTest Diff",
   resetApp: "Reset App",
+  openDeeplink: "Open Deeplink",
   runMaestroTest: "Run Maestro Test",
   cursor: "Justlife Agent",
 };

@@ -72,3 +72,6 @@ Please report issues on the GitHub repository.
 - Justlife Agent: write unit tests for the latest changes via Cursor Agent.
 - Reset App now supports both Justlife and Partner app, detected automatically from the opened project.
 - Reset App on Android now targets the selected device when multiple emulators are running.
+
+### 0.1.2
+- Open Deeplink: paste a deeplink (e.g. justlife://funnel?appointment_id=123) or universal link (https://www.justlife.com/...) and open it on all booted iOS simulators and Android emulators.
