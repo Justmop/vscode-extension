@@ -63,9 +63,11 @@ const menuOptions = {
   viewAndroid: "View Android",
   abtestDiff: "AbTest Diff",
   resetApp: "Reset App",
+  resetPermissions: "Reset Permission",
   openDeeplink: "Open Deeplink",
   runMaestroTest: "Run Maestro Test",
-  cursor: "Justlife Agent",
+  // Hidden for now
+  // cursor: "Justlife Agent",
 };
 
 module.exports = {

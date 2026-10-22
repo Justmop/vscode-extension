@@ -1,22 +1,9 @@
 const { adbPath, getAppPackages } = require("./constants");
+const { run, shellQuote, getBootedDevices } = require("./devices");
 
 const vscode = require("vscode");
-const { exec } = require("child_process");
 
 let lastDeeplink = "";
-
-function run(command) {
-  return new Promise((resolve) => {
-    exec(command, (error, stdout, stderr) => {
-      resolve({ error, stdout, stderr });
-    });
-  });
-}
-
-// Wraps value in single quotes so &, ? etc. in the url are not interpreted by the shell
-function shellQuote(value) {
-  return `'${value.replace(/'/g, `'\\''`)}'`;
-}
 
 async function startAndroidIntent(serial, url, packageName = "") {
   // adb shell passes the command to the device shell, so the url is quoted twice
@@ -61,18 +48,7 @@ async function openDeeplink() {
   const url = deeplink.trim();
   lastDeeplink = url;
 
-  const [iosResult, androidResult] = await Promise.all([
-    run('xcrun simctl list devices booted | grep -oE "[0-9A-F-]{36}"'),
-    run(`${adbPath} devices`),
-  ]);
-
-  const iosDevices = iosResult.stdout.split("\n").filter((line) => line);
-  const androidDevices = androidResult.stdout
-    .split("\n")
-    .slice(1)
-    .map((line) => line.trim().split(/\s+/))
-    .filter(([serial, state]) => serial && state === "device")
-    .map(([serial]) => serial);
+  const { iosDevices, androidDevices } = await getBootedDevices();
 
   if (iosDevices.length === 0 && androidDevices.length === 0) {
     vscode.window.showWarningMessage(

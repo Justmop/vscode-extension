@@ -4,6 +4,7 @@ const { listOfAbTestFolder } = require("./src/abtestdiff");
 const { menuOptions } = require("./src/constants");
 const { resetApp } = require("./src/resetApp");
 const { openDeeplink } = require("./src/openDeeplink");
+const { resetPermissions } = require("./src/resetPermissions");
 const { maestroTestRunner } = require("./src/runMaestroTest");
 const { viewAndroid, viewIOS } = require("./src/startSimulators");
 const { showCursorMenu } = require("./src/cursorIntegration");
@@ -39,6 +40,8 @@ function activate(context) {
           viewAndroid();
         } else if (selectedSimulator === menuOptions.resetApp) {
           resetApp();
+        } else if (selectedSimulator === menuOptions.resetPermissions) {
+          await resetPermissions();
         } else if (selectedSimulator === menuOptions.openDeeplink) {
           await openDeeplink();
         } else if (selectedSimulator === menuOptions.abtestDiff) {

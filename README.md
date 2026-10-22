@@ -75,3 +75,7 @@ Please report issues on the GitHub repository.
 
 ### 0.1.2
 - Open Deeplink: paste a deeplink (e.g. justlife://funnel?appointment_id=123) or universal link (https://www.justlife.com/...) and open it on all booted iOS simulators and Android emulators.
+
+### 0.1.3
+- Reset Permission: reset the opened project's app permissions (including notifications) on all booted devices, app data is kept.
+- Justlife Agent menu is hidden for now.
